@@ -1,0 +1,31 @@
+---
+title: "Seasons"
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(ggridges)
+```
+
+```{r}
+mallards <- read_rds("data/mallards.rds")
+```
+
+```{r}
+mallards |>
+  count(month, month_num)
+```
+
+```{r}
+summary(mallards$speed)
+```
+
+```{r}
+mallards |>
+  filter(speed <= 30) |>
+  ggplot(aes(x = speed, y = month)) +
+  geom_density_ridges() +
+  scale_y_discrete(limits = levels(mallards$month)) +
+  labs(x = "Speed (m/s)", y = "Month")
+```
